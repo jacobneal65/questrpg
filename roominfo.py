@@ -1,11 +1,12 @@
+import sqlconn
 
 #Gets the information for a room and then waits for user input.
-def room_description(mycursor, x, y):
+def room_description(x, y):
+	
 	
 	query = 'CALL RoomInfo(%s,%s);'
 	room_tuple = (x, y)
-	mycursor.execute(query, room_tuple)
-	currentroom = mycursor.fetchone()
+	currentroom = sqlconn.execute_query(query,room_tuple)
 	
 	print('\n' + currentroom[2] + ' ')
 	
@@ -41,19 +42,21 @@ def room_description(mycursor, x, y):
 			x+=1
 		elif choice == 'w':
 			x-=1
+			
 		#run the script for checking room
-		room_tuple = (x, y)
-		mycursor.execute(query, room_tuple)
-		currentroom = mycursor.fetchone()
+		
+		newcoor = (x, y)
+		currentroom = sqlconn.execute_query(query,newcoor)
+	
 		if currentroom is None:
 			print('can\'t go that way')
 		else:
 			#if true run script to change player locationx and locationy
+			print('run update player to '+ str(newcoor))
 			query = 'CALL UpdatePlayer(%s,%s);'
-			mycursor.execute(query, room_tuple)
-			playera = mycursor.fetchone()
+			playera = sqlconn.update_query(query,newcoor)
 			#recursion of the room		
-			room_description(mycursor, x, y) 	
+			room_description(x, y) 	
 			
 			
 
@@ -62,7 +65,7 @@ def room_description(mycursor, x, y):
 	else:
 		#run script for checking special commands
 		print('not valid input. Maybe he will add more in the future')
-		room_description(mycursor, x, y) 
+		room_description(x, y) 
 
 
 
