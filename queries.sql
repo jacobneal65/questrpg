@@ -115,7 +115,7 @@ INSERT INTO room_triggers ( keyword, locationx, locationy, newx, newy, cinematic
 
 CREATE PROCEDURE GetTrigger(IN xval INT, IN yval INT)
 BEGIN
-    SELECT keyword, locationx, locationy, newx, newy, cinematicid
+    SELECT keyword, newx, newy, cinematicid
     FROM room_triggers
     WHERE locationx = xval AND locationy = yval;
 END
