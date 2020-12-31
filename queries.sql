@@ -18,7 +18,6 @@ CREATE TABLE rooms
   description    VARCHAR(1000) NOT NULL,                    # Description of the room
   locationx        INT NOT NULL,                            # x location of room
   locationy        INT NOT NULL,                            # y location of room
-  triggercmd    VARCHAR(150) NOT NULL,                    # a user specific command to activate an event.
   PRIMARY KEY     (id)                                    # Make the id the primary key
 );
 
@@ -26,11 +25,11 @@ CREATE TABLE rooms
 
 #populate rooms
 
-INSERT INTO rooms ( name, description, locationx, locationy, triggercmd) VALUES
-('room1', 'You find yourself in the engine room of a ship you don\'t recognize. To the north is a hallway.', 1,1,''), #main ship area
-('room2', 'the hallway leads cockpit. You should launch your ship.', 1,2,'launch'), #cockpit
+INSERT INTO rooms ( name, description, locationx, locationy) VALUES
+('room1', 'You find yourself in the engine room of a ship you don\'t recognize. To the north is a hallway.', 1,1), #main ship area
+('room2', 'the hallway leads cockpit. You should launch your ship.', 1,2), #cockpit
 
-('room3', 'what a lovely skyline.', 10,1,''); #after launch
+('room3', 'what a lovely skyline.', 10,1); #after launch
 
 
 #lets you see what is in rooms.
@@ -93,7 +92,7 @@ CALL UpdatePlayer(1,1)
 CREATE TABLE room_triggers
 (
   id            	INT unsigned NOT NULL AUTO_INCREMENT,   # Unique ID for the record
-  keyword			VARCHAR(1000) NOT NULL,					# don't let them sql inject you dude 
+  keyword			VARCHAR(1000) NOT NULL,					# dont let them sql inject you dude 
   locationx			INT NOT NULL,                           # x location of room
   locationy        	INT NOT NULL,                           # y location of room
   newx       		INT NOT NULL,                           # new y location of room
@@ -110,6 +109,18 @@ CREATE TABLE cinematics
   description       VARCHAR(1000) NOT NULL,					# the description
   PRIMARY KEY     (id)                                    	# Make the id the primary key
 );
+
+INSERT INTO room_triggers ( keyword, locationx, locationy, newx, newy, cinematicid) VALUES
+('launch', 1,2,10,1,1)
+
+CREATE PROCEDURE GetTrigger(IN xval INT, IN yval INT)
+BEGIN
+    SELECT id, keyword, locationx, locationy
+    FROM room_triggers
+    WHERE locationx = xval AND locationy = yval;
+END
+
+CALL GetTrigger(1,2)
 
 
 
