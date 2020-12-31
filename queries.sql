@@ -93,7 +93,7 @@ CALL UpdatePlayer(1,1)
 CREATE TABLE room_triggers
 (
   id            	INT unsigned NOT NULL AUTO_INCREMENT,   # Unique ID for the record
-  keyword			VARCHAR(1000) NOT NULL 					# don't let them sql inject you dude 
+  keyword			VARCHAR(1000) NOT NULL,					# don't let them sql inject you dude 
   locationx			INT NOT NULL,                           # x location of room
   locationy        	INT NOT NULL,                           # y location of room
   newx       		INT NOT NULL,                           # new y location of room
