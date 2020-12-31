@@ -88,3 +88,28 @@ END
 
 CALL UpdatePlayer(1,1)
 
+
+
+CREATE TABLE room_triggers
+(
+  id            	INT unsigned NOT NULL AUTO_INCREMENT,   # Unique ID for the record
+  keyword			VARCHAR(1000) NOT NULL 					# don't let them sql inject you dude 
+  locationx			INT NOT NULL,                           # x location of room
+  locationy        	INT NOT NULL,                           # y location of room
+  newx       		INT NOT NULL,                           # new y location of room
+  newy       		INT NOT NULL,                           # new y location of room
+  cinematicid		int NOT NULL,                           # goes to cinematic table
+  PRIMARY KEY     (id)                                    	# Make the id the primary key
+);
+
+CREATE TABLE cinematics
+(
+  id            	INT unsigned NOT NULL AUTO_INCREMENT,   # Unique ID for the record
+  cinematicid		INT NOT NULL,                           # pull each page of desc for given trigger
+  ordering			INT NOT NULL,                           # orderby to get descriptions running
+  description       VARCHAR(1000) NOT NULL,					# the description
+  PRIMARY KEY     (id)                                    	# Make the id the primary key
+);
+
+
+
