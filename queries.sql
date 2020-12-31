@@ -38,7 +38,7 @@ INSERT INTO rooms ( name, description, locationx, locationy, triggercmd) VALUES
 select * from rooms
 
 
-Create player
+#Create player
 
 USE quest;
 CREATE TABLE player
@@ -49,7 +49,8 @@ CREATE TABLE player
   PRIMARY KEY     (id)                                    # Make the id the primary key
 );
 INSERT INTO player (locationx, locationy) VALUES (1,1);
-Roominfo stored procedure                used to find all room information
+
+#Roominfo stored procedure                used to find all room information
 
 DROP PROCEDURE IF EXISTS RoomInfo ;
 
@@ -71,7 +72,7 @@ CALL RoomInfo(1,1)
 
 
 
-Update player location stored procedure    
+#Update player location stored procedure    
 
 select * from player where id = 1
 
