@@ -122,5 +122,11 @@ END
 
 CALL GetTrigger(1,2)
 
+INSERT INTO cinematics ( cinematicid, ordering, description) VALUES
+(1,1, 'zoom'),
+(1,2, 'such wow'),
+(1,3, 'behold the stars');
+
+
 
 
