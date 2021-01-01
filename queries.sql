@@ -127,6 +127,12 @@ INSERT INTO cinematics ( cinematicid, ordering, description) VALUES
 (1,2, 'such wow'),
 (1,3, 'behold the stars');
 
-
+CREATE PROCEDURE GetCinematics(IN myid INT)
+BEGIN
+  SELECT description 
+  FROM cinematics
+  WHERE cinematicid = myid
+  ORDER BY ordering;
+END
 
 
