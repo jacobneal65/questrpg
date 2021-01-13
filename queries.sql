@@ -152,10 +152,9 @@ CREATE PROCEDURE Map(IN xval INT, IN yval INT)
 BEGIN
   SELECT locationx, locationy 
   FROM rooms
-  WHERE locationx <= xval+3 AND locationx >= xval-3 AND locationy <= yval+3 AND locationy >= yval-3
-  ORDER BY locationy ASC;
+  WHERE locationx <= xval+2 AND locationx >= xval-2 AND locationy <= yval+2 AND locationy >= yval-2
+  ORDER BY locationx ASC, locationy ASC;
 END
-
 
 
 
