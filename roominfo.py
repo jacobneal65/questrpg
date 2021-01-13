@@ -15,15 +15,15 @@ def room_description(x, y):
 		direct += 'n'
 	if currentroom[4] != 0:
 		if len(direct) != 0:
-			direct += ' ' #addspace
+			direct += ', ' #addspace
 		direct += 's'
 	if currentroom[5] != 0: #east
 		if len(direct) != 0:
-			direct += ' ' #addspace
+			direct += ', ' #addspace
 		direct += 'e'
 	if currentroom[6] != 0: #west
 		if len(direct) != 0:
-			direct += ' ' #addspace
+			direct += ', ' #addspace
 		direct += 'w'
 	if len(direct) != 0:
 		print('directions: ' + direct)
@@ -34,7 +34,13 @@ def room_description(x, y):
 # METHOD TO HANDLE USER INPUT
 def user_input(x,y):
 	choice = input('Input: ')
-	if choice == 'exit' or choice == 'quit':
+	if choice == 'help' or choice == 'h':
+		print('\nIn the world, you will interact with single word commands.\nThese can be an object in a room or a verb. \nHere are some general commands to get you started.')
+		print('Commands: quit, restart.')
+		print('Directions: n,s,e,w.')
+		print('(Hint: a good start would be to go to the cockpit and type \'launch\')')
+		room_description(x,y)
+	elif choice == 'exit' or choice == 'quit':
 		quit()
 	elif choice == 'restart':
 			sqlconn.update_query( 'CALL UpdatePlayer(%s,%s);',(1,1))	#restart game
@@ -51,13 +57,14 @@ def user_input(x,y):
 			newy = y
 		elif choice == 'w':
 			newx = x-1
+			newy = y
 		#run the script for checking room
 		query = 'CALL RoomInfo(%s,%s);'
 		newcoor = (newx, newy)
 		currentroom = sqlconn.execute_query(query,newcoor)
 		
 		if currentroom is None:
-			print('can\'t go that way')
+			print('\ncan\'t go that way')
 			user_input(x, y) 
 		else:
 			#if true run script to change player locationx and locationy
@@ -98,3 +105,11 @@ def play_cinematics(cinid):
 		for x in cin:
 			print('\n'+x[0])
 			time.sleep(1)
+
+
+
+
+
+
+
+
