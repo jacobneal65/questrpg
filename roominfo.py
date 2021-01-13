@@ -1,29 +1,33 @@
 import sqlconn
 import time
+import mapinfo
+
+def clear_screen():
+	print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
 
 #MAIN LOOP OF GAME. Gets room descriptions and user inputs etc
 def room_description(x, y):
-	
 	query = 'CALL RoomInfo(%s,%s);'
 	room_tuple = (x, y)
 	currentroom = sqlconn.execute_query(query,room_tuple)
-	
-	print('\n' + currentroom[2] + ' ')
-	#initialize
+	clear_screen()
+	mapinfo.print_map(x,y)
+	print('\n' + currentroom[2] + ' ') # room description
+	# initialize
 	direct = ''
-	if currentroom[3] != 0: #north
+	if currentroom[3] != 0: # north
 		direct += 'n'
 	if currentroom[4] != 0:
 		if len(direct) != 0:
-			direct += ', ' #addspace
+			direct += ', ' # addspace
 		direct += 's'
-	if currentroom[5] != 0: #east
+	if currentroom[5] != 0: # east
 		if len(direct) != 0:
-			direct += ', ' #addspace
+			direct += ', ' # addspace
 		direct += 'e'
-	if currentroom[6] != 0: #west
+	if currentroom[6] != 0: # west
 		if len(direct) != 0:
-			direct += ', ' #addspace
+			direct += ', ' # addspace
 		direct += 'w'
 	if len(direct) != 0:
 		print('directions: ' + direct)
@@ -35,13 +39,15 @@ def room_description(x, y):
 def user_input(x,y):
 	choice = input('Input: ')
 	if choice == 'help' or choice == 'h':
-		print('\nIn the world, you will interact with single word commands.\nThese can be an object in a room or a verb. \nHere are some general commands to get you started.')
-		print('Commands: quit, restart.')
-		print('Directions: n,s,e,w.')
-		print('(Hint: a good start would be to go to the cockpit and type \'launch\')')
-		room_description(x,y)
+		print_help()
+		user_input(x,y)	
 	elif choice == 'exit' or choice == 'quit':
 		quit()
+	elif choice == 'map' or choice == 'm':
+		mapinfo.print_map(x,y)
+		user_input(x,y)
+	elif choice == 'room':
+		room_description(x,y)
 	elif choice == 'restart':
 			sqlconn.update_query( 'CALL UpdatePlayer(%s,%s);',(1,1))	#restart game
 			room_description(1,1)
@@ -107,7 +113,13 @@ def play_cinematics(cinid):
 			time.sleep(1)
 
 
-
+def print_help():
+	print('\n - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -')
+	print('In the world, you will interact with single word commands.\nThese can be an object in a room or a verb. \nHere are some general commands to get you started.')
+	print('\nCommands: quit, restart, room, map.')
+	print('Directions: n,s,e,w.')
+	print('\n(Hint: a good start would be to go to the cockpit and type \'launch\')')
+	print(' - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n')
 
 
 
