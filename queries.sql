@@ -24,13 +24,17 @@ CREATE TABLE rooms
 
 
 #populate rooms
-
 INSERT INTO rooms ( name, description, locationx, locationy) VALUES
 ('room1', 'You find yourself in the engine room of a ship you don\'t recognize. To the north is a hallway.', 1,1), #main ship area
 ('room2', 'the hallway leads cockpit. You should launch your ship.', 1,2), #cockpit
-
 ('room3', 'what a lovely skyline.', 10,1); #after launch
 
+#Test Rooms
+INSERT INTO rooms ( name, description, locationx, locationy) VALUES
+('test1', 'room 2,2', 2,2),
+('test2', 'room 0,2', 0,2),
+('test3', 'room 1,0', 1,0),
+('test4', 'room 1,-1', 1,-1);
 
 #lets you see what is in rooms.
 
