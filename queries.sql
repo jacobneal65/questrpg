@@ -34,7 +34,15 @@ INSERT INTO rooms ( name, description, locationx, locationy) VALUES
 ('test1', 'room 2,2', 2,2),
 ('test2', 'room 0,2', 0,2),
 ('test3', 'room 1,0', 1,0),
-('test4', 'room 1,-1', 1,-1);
+('test4', 'room 1,-1', 1,-1),
+('test5', 'room 1,3', 1,3),
+('test6', 'room 1,4', 1,4),
+('test7', 'room 1,5', 1,5)
+('test8', 'room 3,2', 3,2),
+('test9', 'room 4,2', 4,2).
+('test9', 'room 5,2', 5,2).
+('test9', 'room 6,2', 6,2);
+
 
 #lets you see what is in rooms.
 
@@ -138,5 +146,16 @@ BEGIN
   WHERE cinematicid = myid
   ORDER BY ordering;
 END
+
+
+CREATE PROCEDURE Map(IN xval INT, IN yval INT)
+BEGIN
+  SELECT locationx, locationy 
+  FROM rooms
+  WHERE locationx <= xval+3 AND locationx >= xval-3 AND locationy <= yval+3 AND locationy >= yval-3
+  ORDER BY locationy ASC;
+END
+
+
 
 
