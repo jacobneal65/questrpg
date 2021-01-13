@@ -43,9 +43,6 @@ def user_input(x,y):
 		user_input(x,y)	
 	elif choice == 'exit' or choice == 'quit':
 		quit()
-	elif choice == 'map' or choice == 'm':
-		mapinfo.print_map(x,y)
-		user_input(x,y)
 	elif choice == 'room':
 		room_description(x,y)
 	elif choice == 'restart':
@@ -116,12 +113,7 @@ def play_cinematics(cinid):
 def print_help():
 	print('\n - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -')
 	print('In the world, you will interact with single word commands.\nThese can be an object in a room or a verb. \nHere are some general commands to get you started.')
-	print('\nCommands: quit, restart, room, map.')
+	print('\nCommands: quit, restart, room.')
 	print('Directions: n,s,e,w.')
 	print('\n(Hint: a good start would be to go to the cockpit and type \'launch\')')
 	print(' - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n')
-
-
-
-
-
