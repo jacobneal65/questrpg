@@ -37,11 +37,11 @@ INSERT INTO rooms ( name, description, locationx, locationy) VALUES
 ('test4', 'room 1,-1', 1,-1),
 ('test5', 'room 1,3', 1,3),
 ('test6', 'room 1,4', 1,4),
-('test7', 'room 1,5', 1,5)
+('test7', 'room 1,5', 1,5),
 ('test8', 'room 3,2', 3,2),
-('test9', 'room 4,2', 4,2).
-('test9', 'room 5,2', 5,2).
-('test9', 'room 6,2', 6,2);
+('test9', 'room 4,2', 4,2),
+('test10', 'room 5,2', 5,2),
+('test11', 'room 6,2', 6,2);
 
 
 #lets you see what is in rooms.
