@@ -21,7 +21,7 @@ class Player:
 		self.locationx = newplayer[1]
 		self.locationy = newplayer[2]
 		print('\n player loaded')
-
+		time.sleep(0.8)
 #Create our main player
 player1 = Player()
 player1.load()
