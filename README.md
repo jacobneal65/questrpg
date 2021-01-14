@@ -1,12 +1,11 @@
 # questrpg
-Little text rpg using python and a mysql database. It will have an active map system.
+Little text rpg using python and a SQLite database.
 
 Possible features:
-
-Combat
-  
-  Items
-    
-    Items effecting world
-    
-    Possibly persistent
+Map
+Story (if I get around to it)
+Simple Combat
+Items
+>Items effecting world
+>Possibly persistent
+>equipment and backpack
