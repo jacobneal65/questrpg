@@ -1,31 +1,30 @@
-import sqlconn
 import time
 import mapinfo
+import sqlcmds
 
 def clear_screen():
 	print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
 
 #MAIN LOOP OF GAME. Gets room descriptions and user inputs etc
 def room_description(x, y):
-	query = 'CALL RoomInfo(%s,%s);'
-	room_tuple = (x, y)
-	currentroom = sqlconn.execute_query(query,room_tuple)
+
+	currentroom = sqlcmds.room_info(x,y)
 	clear_screen()
 	mapinfo.print_map(x,y)
-	print('\n' + currentroom[2] + ' ') # room description
+	print('\n' + currentroom[1] + ' ') # room description
 	# initialize
 	direct = ''
-	if currentroom[3] != 0: # north
+	if currentroom[2] != 0: # north
 		direct += 'n'
-	if currentroom[4] != 0:
+	if currentroom[3] != 0:
 		if len(direct) != 0:
 			direct += ', ' # addspace
 		direct += 's'
-	if currentroom[5] != 0: # east
+	if currentroom[4] != 0: # east
 		if len(direct) != 0:
 			direct += ', ' # addspace
 		direct += 'e'
-	if currentroom[6] != 0: # west
+	if currentroom[5] != 0: # west
 		if len(direct) != 0:
 			direct += ', ' # addspace
 		direct += 'w'
@@ -46,7 +45,7 @@ def user_input(x,y):
 	elif choice == 'room':
 		room_description(x,y)
 	elif choice == 'restart':
-			sqlconn.update_query( 'CALL UpdatePlayer(%s,%s);',(1,1))	#restart game
+			sqlcmds.update_player(1,1)
 			room_description(1,1)
 	elif choice == 'n' or choice == 's' or choice == 'e' or choice == 'w':
 		if choice == 'n':
@@ -62,17 +61,14 @@ def user_input(x,y):
 			newx = x-1
 			newy = y
 		#run the script for checking room
-		query = 'CALL RoomInfo(%s,%s);'
-		newcoor = (newx, newy)
-		currentroom = sqlconn.execute_query(query,newcoor)
+		currentroom = sqlcmds.room_info(newx,newy)
 		
 		if currentroom is None:
 			print('\ncan\'t go that way')
 			user_input(x, y) 
 		else:
 			#if true run script to change player locationx and locationy
-			query = 'CALL UpdatePlayer(%s,%s);'
-			sqlconn.update_query(query,newcoor)	
+			sqlcmds.update_player(newx,newy)
 			room_description(newx, newy) 		
 	else: 
 		#look for unique commands
@@ -86,10 +82,8 @@ def user_input(x,y):
 				#run new room stuff
 				newx=trigger[1]
 				newy=trigger[2]
-				newcoor = (newx, newy)
 				#change player location to new room
-				query = 'CALL UpdatePlayer(%s,%s);'
-				playera = sqlconn.update_query(query,newcoor)
+				sqlcmds.update_player(newx,newy)
 				room_description(newx, newy) 	
 			else:
 				print('\n nothing happened')
@@ -117,3 +111,8 @@ def print_help():
 	print('Directions: n,s,e,w.')
 	print('\n(Hint: a good start would be to go to the cockpit and type \'launch\')')
 	print(' - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n')
+
+
+
+
+
