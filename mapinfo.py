@@ -1,6 +1,6 @@
 import time
 import mysql.connector
-import sqlconn
+import sqlcmds
 
 def invert_y(y):
 	if y == 4:
@@ -18,11 +18,7 @@ def invert_y(y):
 		
 		
 def print_map(x,y):
-	query = 'CALL Map(%s,%s);'
-	query_tuple = (x, y)
-	output = sqlconn.execute_query(query, query_tuple, 1) # one means grab multiples
-	#print(output)
-	
+	output = sqlcmds.get_map(x,y)
 	#decided distance for a 5x5 matrix
 	xstart = x-2 
 	ystart = y-2
@@ -44,10 +40,9 @@ def print_map(x,y):
 			T[ymod][xmod]='#'
 
 	#print array
-	#print('  - - - - -')
+	print('\n     MAP')
 	for r in T:
 		print('|', end =' ') 
 		for c in r:
 			print(c,end = ' ')
 		print('|')
-	#print('  - - - - -')
