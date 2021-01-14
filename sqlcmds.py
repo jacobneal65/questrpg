@@ -24,12 +24,12 @@ def room_info(x, y):
 	EXISTS(SELECT 1 FROM rooms WHERE locationx = ? AND locationy = ?+1) AS n,
 	EXISTS(SELECT 1 FROM rooms WHERE locationx = ? AND locationy = ?-1) AS s,
 	EXISTS(SELECT 1 FROM rooms WHERE locationx = ?+1 AND locationy = ?) AS e,
-	EXISTS(SELECT 1 FROM rooms WHERE locationx = ?-1 AND locationy = ?) AS w
+	EXISTS(SELECT 1 FROM rooms WHERE locationx = ?-1 AND locationy = ?) AS w,
+	artid
 	FROM rooms
 	WHERE locationx = ? AND locationy = ?;
 	"""
 	inputparams = (x,y,x,y,x,y,x,y,x,y)
-	
 	c.execute(query,inputparams)
 	returnvals = c.fetchone() 
 	conn.close()
@@ -63,7 +63,7 @@ def load_player():
 	time.sleep(0.8)
 	return player
 
-#----------------------TEST STILL----------------------
+#--------work on this more later
 def get_trigger(x,y):
 	conn = sqlite3.connect('quest.db')
 	c = conn.cursor()
@@ -81,7 +81,6 @@ def get_trigger(x,y):
 	return returnvals
 
 
-#----------------------TEST STILL----------------------
 def get_cinematics(myid):
 	conn = sqlite3.connect('quest.db')
 	c = conn.cursor()
@@ -100,11 +99,9 @@ def get_cinematics(myid):
 	return returnvals
 
 
-#----------------------TEST STILL----------------------
 def get_map(x,y):
 	conn = sqlite3.connect('quest.db')
 	c = conn.cursor()
-	inputparams = (x,x,y,y)
 	query ="""   
 	SELECT locationx, locationy 
 	FROM rooms
@@ -118,7 +115,19 @@ def get_map(x,y):
 	conn.close()
 	return returnvals
 
-
+def get_art(artid):
+	conn = sqlite3.connect('quest.db')
+	c = conn.cursor()
+	query ="""   
+	SELECT name, image 
+	FROM art
+	WHERE artid = ?
+	"""
+	inputparams = (artid,)
+	c.execute(query,inputparams)
+	returnvals = c.fetchone()
+	conn.close()
+	return returnvals
 
 
 
