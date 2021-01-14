@@ -28,10 +28,11 @@ def room_info(x, y):
 	FROM rooms
 	WHERE locationx = ? AND locationy = ?;
 	"""
-	c.execute(query,(x,y,x,y,x,y,x,y,x,y))
-	returnvals = c.fetchone()
+	inputparams = (x,y,x,y,x,y,x,y,x,y)
+	
+	c.execute(query,inputparams)
+	returnvals = c.fetchone() 
 	conn.close()
-	print(returnvals)
 	return returnvals
 
 
@@ -46,7 +47,7 @@ def update_player(x, y):
 	WHERE id = 1;
 	"""
 	c.execute(query,(x,y))
-	conn.commit
+	conn.commit()
 	conn.close()
 
 
@@ -56,20 +57,69 @@ def load_player():
 	query ="SELECT * FROM player WHERE id = 1"
 	
 	c.execute(query)
-	player = c.fetchone() # or c.fetchall()
+	player = c.fetchone()
 	conn.close()
 	print('\n player loaded')
 	time.sleep(0.8)
 	return player
 
-
-def template_method():
+#----------------------TEST STILL----------------------
+def get_trigger(x,y):
 	conn = sqlite3.connect('quest.db')
 	c = conn.cursor()
-	inputparams = (1,1)
-	query ="""     """
+	query ="""   
+	SELECT keyword, newx, newy, cinematicid
+    FROM room_triggers
+    WHERE locationx = ? AND locationy = ?;
+	"""
+	inputparams = (x,y)
+	
 	c.execute(query,inputparams)
-	returnvals = c.fetchone() # or c.fetchall()
+	returnvals = c.fetchone() 
 	conn.commit()
 	conn.close()
 	return returnvals
+
+
+#----------------------TEST STILL----------------------
+def get_cinematics(myid):
+	conn = sqlite3.connect('quest.db')
+	c = conn.cursor()
+	query ="""   
+	SELECT description 
+	FROM cinematics
+	WHERE cinematicid = ?
+	ORDER BY ordering;
+	"""
+	inputparams = (myid,)
+	
+	c.execute(query,inputparams)
+	returnvals = c.fetchall() 
+	conn.commit()
+	conn.close()
+	return returnvals
+
+
+#----------------------TEST STILL----------------------
+def get_map(x,y):
+	conn = sqlite3.connect('quest.db')
+	c = conn.cursor()
+	inputparams = (x,x,y,y)
+	query ="""   
+	SELECT locationx, locationy 
+	FROM rooms
+	WHERE locationx <= ?+2 AND locationx >= ?-2 AND locationy <= ?+2 AND locationy >= ?-2
+	ORDER BY locationx ASC, locationy ASC;
+	"""
+	inputparams = (x,x,y,y)
+	c.execute(query,inputparams)
+	returnvals = c.fetchall() 
+	conn.commit()
+	conn.close()
+	return returnvals
+
+
+
+
+
+
