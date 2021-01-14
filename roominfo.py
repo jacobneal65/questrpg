@@ -72,9 +72,8 @@ def user_input(x,y):
 			room_description(newx, newy) 		
 	else: 
 		#look for unique commands
-		query = 'CALL GetTrigger(%s,%s);'
-		location = (x, y)
-		trigger = sqlconn.execute_query(query,location)
+
+		trigger = sqlcmds.get_trigger(x,y)
 		if trigger is not None:
 			if choice == trigger[0]:
 				#call cinematics
@@ -95,9 +94,7 @@ def user_input(x,y):
 		
 # METHOD TO HANDLE CINEMATICS	
 def play_cinematics(cinid):
-	query = 'CALL GetCinematics(%s);'
-	cintuple = (cinid,)
-	cin = sqlconn.execute_query(query, cintuple,1)	
+	cin = sqlcmds.get_cinematics(cinid)
 	if	cin is not None:
 		for x in cin:
 			print('\n'+x[0])
