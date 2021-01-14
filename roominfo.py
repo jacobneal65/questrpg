@@ -5,28 +5,36 @@ import sqlcmds
 def clear_screen():
 	print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
 
+def add_space(direct):
+	if len(direct) != 0:
+		direct += ', '
+	return direct
+
 #MAIN LOOP OF GAME. Gets room descriptions and user inputs etc
 def room_description(x, y):
 
 	currentroom = sqlcmds.room_info(x,y)
 	clear_screen()
+	#ART
+	if currentroom[6] is not None:
+		art = sqlcmds.get_art(currentroom[6])
+		print('   ======'+art[0] +'======'+'\n' +art[1])
+	#MAP
 	mapinfo.print_map(x,y)
-	print('\n' + currentroom[1] + ' ') # room description
-	# initialize
+	#DESCRIPTION
+	print('\n' + currentroom[1] + ' ')
+	# print directions
 	direct = ''
 	if currentroom[2] != 0: # north
 		direct += 'n'
 	if currentroom[3] != 0:
-		if len(direct) != 0:
-			direct += ', ' # addspace
+		direct = add_space(direct)
 		direct += 's'
 	if currentroom[4] != 0: # east
-		if len(direct) != 0:
-			direct += ', ' # addspace
+		direct = add_space(direct)
 		direct += 'e'
 	if currentroom[5] != 0: # west
-		if len(direct) != 0:
-			direct += ', ' # addspace
+		direct = add_space(direct)
 		direct += 'w'
 	if len(direct) != 0:
 		print('directions: ' + direct)
