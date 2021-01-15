@@ -1,20 +1,5 @@
 import sqlite3
 import time
-# ~ def check_database():
-	# ~ #creates the quest database if it doesn't exist.
-	# ~ conn = sqlite3.connect('quest.db')
-	# ~ c = conn.cursor()
-	# ~ c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='rooms';")
-
-	# ~ c.execute("SELECT * from rooms")
-	# ~ returnvals = c.fetchone()
-
-	# ~ if returnvals is None:
-		# ~ print('empty')
-	# ~ else:
-		# ~ print(returnvals)
-	# ~ conn.commit()
-	# ~ conn.close()
 	
 def room_info(x, y):
 	conn = sqlite3.connect('quest.db')
@@ -64,7 +49,7 @@ def load_player():
 	return player
 
 #--------work on this more later
-def get_trigger(x,y):
+def get_triggers(x,y):
 	conn = sqlite3.connect('quest.db')
 	c = conn.cursor()
 	query ="""   
@@ -75,8 +60,7 @@ def get_trigger(x,y):
 	inputparams = (x,y)
 	
 	c.execute(query,inputparams)
-	returnvals = c.fetchone() 
-	conn.commit()
+	returnvals = c.fetchall() 
 	conn.close()
 	return returnvals
 
@@ -94,7 +78,6 @@ def get_cinematics(myid):
 	
 	c.execute(query,inputparams)
 	returnvals = c.fetchall() 
-	conn.commit()
 	conn.close()
 	return returnvals
 
@@ -111,7 +94,6 @@ def get_map(x,y):
 	inputparams = (x,x,y,y)
 	c.execute(query,inputparams)
 	returnvals = c.fetchall() 
-	conn.commit()
 	conn.close()
 	return returnvals
 

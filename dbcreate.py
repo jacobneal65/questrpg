@@ -31,7 +31,7 @@ def create_tables():
 	c.execute(""" 
 	INSERT INTO rooms ( name, description, locationx, locationy, artid) VALUES
 	('room1', 'You find yourself in the engine room of a ship you do not recognize. 
-	To the north is a hallway.', 1, 1, 1),
+To the north is a hallway.', 1, 1, 1),
 	('room2', 'the hallway leads cockpit. You should launch your ship.', 1, 2, 1), 
 	('room3', 'what a lovely skyline.', 10, 1, 2);
 	""")
@@ -76,7 +76,12 @@ def create_tables():
 	  cinematicid		int NOT NULL                   
 	);
 	""")
-
+	c.execute(""" 
+	INSERT INTO room_triggers ( keyword, locationx, locationy, newx, newy, cinematicid) VALUES
+	('launch', 1,2,10,1,1),
+	('jump', 1,2,1,5,2);
+	""")
+	
 	c.execute(""" 
 	CREATE TABLE cinematics
 	(
@@ -85,17 +90,12 @@ def create_tables():
 	  description       VARCHAR(1000) NOT NULL
 	);
 	""")
-
-	c.execute(""" 
-	INSERT INTO room_triggers ( keyword, locationx, locationy, newx, newy, cinematicid) VALUES
-	('launch', 1,2,10,1,1)
-	""")
-
 	c.execute(""" 
 	INSERT INTO cinematics ( cinematicid, ordering, description) VALUES
 	(1,1, 'zoom'),
 	(1,2, 'such wow'),
-	(1,3, 'behold the stars');
+	(1,3, 'behold the stars'),
+	(2,1, 'leap');
 	""")
 
 	c.execute(""" 
