@@ -1,5 +1,4 @@
 import time
-import mysql.connector
 import sqlcmds
 
 def invert_y(y):
