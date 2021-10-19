@@ -1,0 +1,13 @@
+questrpg/
+    main.py
+    sql_pkg/
+		__init__.py
+        dbcreate.py
+        sqlcmds.py
+    room_pkg/
+        __init__.py
+        mapinfo.py
+        rooominfo.py
+    user_pkg/
+        __init__.py
+        userinput.py
